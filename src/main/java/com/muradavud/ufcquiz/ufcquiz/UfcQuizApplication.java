@@ -1,8 +1,9 @@
 package com.muradavud.ufcquiz.ufcquiz;
 
+import com.muradavud.ufcquiz.ufcquiz.services.FighterImageService;
+import com.muradavud.ufcquiz.ufcquiz.services.FighterImageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +12,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UfcQuizApplication implements CommandLineRunner
 {
 
-	@Autowired
-	private FighterImageService fighterImageScrapeService;
+	private FighterImageService fighterImageService;
+	private FightDao fightDao;
+
+	public UfcQuizApplication(FighterImageServiceImpl fighterImageScrapeService, FightDao fightDao) {
+		this.fighterImageService = fighterImageScrapeService;
+		this.fightDao = fightDao;
+	}
+
+
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -22,6 +30,8 @@ public class UfcQuizApplication implements CommandLineRunner
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("HERE -> {}", fighterImageScrapeService.scrapeImageUrl("Ovince Saint Preux"));
+		logger.info("IMAGE -> {}", fighterImageService.scrapeImageUrl("Ovince Saint Preux"));
+		logger.info("ID {} -> {}", 3, fightDao.findById(3).getB_Fighter());
+		logger.info("RANDOM -> {}", fightDao.retrieveRandomFight().toString());
 	}
 }
