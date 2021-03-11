@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <img src="600px-no-image.png" style="width:300px;height:300px;" title="fighter_red">
-    <img src="600px-no-image.png" style="width:300px;height:300px;" title="fighter_blue">
-    <p title="question">Question</p>
+    <img src="600px-no-image.png" style="width:300px;height:100%;" title="fighter_red" th:src="${r_img}">
+    <img src="600px-no-image.png" style="width:300px;height:100%;" title="fighter_blue" th:src="${b_img}">
+    <p title="question" th:text="${question}">Question</p>
     <form method="post">
-        <button name="btn" type="submit" value="red">RED</button>
-        <button name="btn" type="submit" value="blue">BLUE</button>
+        <button name="btn" type="submit" th:value="${red_fighter}" th:text="${red_fighter}"></button>
+        <button name="btn" type="submit" th:value="${red_fighter}" th:text="${blue_fighter}"></button>
     </form>
 
 

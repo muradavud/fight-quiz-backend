@@ -2,8 +2,8 @@ package com.muradavud.ufcquiz.ufcquiz;
 
 import com.muradavud.ufcquiz.ufcquiz.dao.FightDao;
 import com.muradavud.ufcquiz.ufcquiz.services.FighterImageService;
-import com.muradavud.ufcquiz.ufcquiz.services.FighterImageServiceImpl;
 import com.muradavud.ufcquiz.ufcquiz.services.GetQuestionService;
+import com.muradavud.ufcquiz.ufcquiz.services.QuizServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,17 +16,17 @@ public class UfcQuizApplication implements CommandLineRunner
 
 	private FighterImageService fighterImageService;
 	private FightDao fightDao;
-	private Quiz quiz;
+	private QuizServiceImpl quiz;
 	private GetQuestionService getQuestionService;
 
-	public UfcQuizApplication(FighterImageService fighterImageService, FightDao fightDao, Quiz quiz, GetQuestionService getQuestionService) {
+	public UfcQuizApplication(FighterImageService fighterImageService, FightDao fightDao, QuizServiceImpl quiz, GetQuestionService getQuestionService) {
 		this.fighterImageService = fighterImageService;
 		this.fightDao = fightDao;
 		this.quiz = quiz;
 		this.getQuestionService = getQuestionService;
 	}
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public static void main(String[] args) {
 		SpringApplication.run(UfcQuizApplication.class, args);
@@ -34,9 +34,9 @@ public class UfcQuizApplication implements CommandLineRunner
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("IMAGE -> {}", fighterImageService.scrapeImageUrl("Ovince Saint Preux"));
-		logger.info("ID {} -> {}", 3, fightDao.findById(3).getB_Fighter());
-		logger.info("RANDOM -> {}", fightDao.retrieveRandomFight().toString());
+//		logger.info("IMAGE -> {}", fighterImageService.scrapeImageUrl("Ovince Saint Preux"));
+//		logger.info("ID {} -> {}", 3, fightDao.findById(3).getB_Fighter());
+//		logger.info("RANDOM -> {}", fightDao.retrieveRandomFight().toString());
 
 //		int i = 0;
 //		while (i < 5) {

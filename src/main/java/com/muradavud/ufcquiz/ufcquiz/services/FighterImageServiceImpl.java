@@ -20,15 +20,17 @@ public class FighterImageServiceImpl implements FighterImageService {
 
         scrapeUrl = scrapeUrl + name;
 
-        Connection.Response resp = Jsoup.connect(scrapeUrl) //
-                .timeout(5000) //
-                .method(Connection.Method.GET) //
+        Connection.Response resp = Jsoup.connect(scrapeUrl)
+                .timeout(5000)
+                .method(Connection.Method.GET)
+                .ignoreHttpErrors(true)
                 .execute();
 
-        Document doc = resp.parse();;
+        Document doc = resp.parse();
         Element element = doc.select("div.c-bio__image *").first();
-        String imgUrl = element.attr("src");
-
-        return imgUrl;
+        if (element == null) {
+            return "600px-no-image.png";
+        }
+        return element.attr("src");
     }
 }

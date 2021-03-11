@@ -1,7 +1,7 @@
 package com.muradavud.ufcquiz.ufcquiz.dao;
 
-import com.muradavud.ufcquiz.ufcquiz.entity.Fight;
-import com.muradavud.ufcquiz.ufcquiz.entity.FightRowMapper;
+import com.muradavud.ufcquiz.ufcquiz.model.Fight;
+import com.muradavud.ufcquiz.ufcquiz.model.FightRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

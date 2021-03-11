@@ -1,4 +1,4 @@
-package com.muradavud.ufcquiz.ufcquiz.entity;
+package com.muradavud.ufcquiz.ufcquiz.model;
 
 public class Fight {
 
