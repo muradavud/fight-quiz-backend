@@ -1,4 +1,4 @@
-package com.muradavud.ufcquiz.ufcquiz;
+package com.muradavud.ufcquiz.ufcquiz.dao;
 
 import com.muradavud.ufcquiz.ufcquiz.entity.Fight;
 import com.muradavud.ufcquiz.ufcquiz.entity.FightRowMapper;
