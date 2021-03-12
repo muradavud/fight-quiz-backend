@@ -4,7 +4,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class FighterImageServiceImpl implements FighterImageService {
         scrapeUrl = scrapeUrl + name;
 
         Connection.Response resp = Jsoup.connect(scrapeUrl)
-                .timeout(5000)
+                .timeout(10000)
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
                 .execute();

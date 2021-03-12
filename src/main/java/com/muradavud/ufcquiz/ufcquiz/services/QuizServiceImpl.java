@@ -2,15 +2,13 @@ package com.muradavud.ufcquiz.ufcquiz.services;
 
 import com.muradavud.ufcquiz.ufcquiz.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-@Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class QuizServiceImpl implements QuizService {
 
     @Autowired
@@ -18,7 +16,8 @@ public class QuizServiceImpl implements QuizService {
 
     private boolean isClosed;
     private int numberOfQuestions;
-    private int currentQuestion;
+    private int numberOfCorrectAnswers;
+    private int currentQuestionIndex;
     private List<Question> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
 
@@ -30,25 +29,39 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void initQuiz() {
         isClosed = false;
-        currentQuestion = 0;
+        currentQuestionIndex = 0;
+        numberOfCorrectAnswers = 0;
+        questions.clear();
+        answers.clear();
+
         for (int i = 0; i < numberOfQuestions; i = i + 1) {
-            questions.add(getQuestionService.getRandomQuestion());
-            answers.add("");
+            questions.add(i, getQuestionService.getRandomQuestion());
+            answers.add(i, "");
         }
     }
 
     @Override
     public boolean iterateToNextQuestion() {
-        if(currentQuestion + 1 == numberOfQuestions) {
+        if(currentQuestionIndex + 1 == numberOfQuestions) {
             return false;
         }
-        currentQuestion = currentQuestion + 1;
+        currentQuestionIndex = currentQuestionIndex + 1;
         return true;
     }
 
     @Override
-    public void close() {
+    public void finish() {
         isClosed = true;
+        for (int i = 0; i<numberOfQuestions; i++) {
+            if (Objects.equals(answers.get(i), questions.get(i).getAnswer())) {
+                numberOfCorrectAnswers = numberOfCorrectAnswers + 1;
+            }
+        }
+    }
+
+    @Override
+    public String getResult() {
+        return numberOfCorrectAnswers + " out of " + numberOfQuestions;
     }
 
     @Override
@@ -57,13 +70,21 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void postAnswer(String answer) {
-        answers.add(currentQuestion, answer);
-        System.out.println(currentQuestion);
+    public boolean postAnswer(String answer) {
+        if(answers.get(currentQuestionIndex).isEmpty()) {
+            answers.add(currentQuestionIndex, answer);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Question getCurrentQuestion() {
-        return questions.get(currentQuestion);
+        return questions.get(currentQuestionIndex);
+    }
+
+    @Override
+    public int getCurrentQuestionIndex() {
+        return currentQuestionIndex;
     }
 }

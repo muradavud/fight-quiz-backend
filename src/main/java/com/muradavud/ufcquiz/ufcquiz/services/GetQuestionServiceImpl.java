@@ -1,15 +1,17 @@
 package com.muradavud.ufcquiz.ufcquiz.services;
 
-import com.muradavud.ufcquiz.ufcquiz.model.Question;
 import com.muradavud.ufcquiz.ufcquiz.dao.FightDao;
 import com.muradavud.ufcquiz.ufcquiz.model.Fight;
+import com.muradavud.ufcquiz.ufcquiz.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Scope("prototype")
 public class GetQuestionServiceImpl implements GetQuestionService {
 
     @Autowired
@@ -17,7 +19,6 @@ public class GetQuestionServiceImpl implements GetQuestionService {
 
     @Override
     public Question getRandomQuestion() {
-
         Fight fight = dao.retrieveRandomFight();
 
         String text =

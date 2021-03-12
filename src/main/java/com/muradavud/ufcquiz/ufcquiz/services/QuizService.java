@@ -6,9 +6,11 @@ public interface QuizService {
 
     void setNumberOfQuestions(int numberOfQuestions);
     void initQuiz();
-    void close();
+    void finish();
     boolean isClosed();
     boolean iterateToNextQuestion();
-    void postAnswer(String answer);
+    boolean postAnswer(String answer);
     Question getCurrentQuestion();
+    int getCurrentQuestionIndex();
+    String getResult();
 }

@@ -34,17 +34,6 @@ public class UfcQuizApplication implements CommandLineRunner
 
 	@Override
 	public void run(String... args) throws Exception {
-//		logger.info("IMAGE -> {}", fighterImageService.scrapeImageUrl("Ovince Saint Preux"));
-//		logger.info("ID {} -> {}", 3, fightDao.findById(3).getB_Fighter());
-//		logger.info("RANDOM -> {}", fightDao.retrieveRandomFight().toString());
 
-//		int i = 0;
-//		while (i < 5) {
-//			logger.info("RANDOM -> {}", getQuestionService.getRandomQuestion().getQuestion());
-//			i++;
-//		}
-
-//		quiz.initQuiz(5);
-//		logger.info("QUIZ -> {}", quiz.getQuestions().get(4).getQuestion());
 	}
 }
