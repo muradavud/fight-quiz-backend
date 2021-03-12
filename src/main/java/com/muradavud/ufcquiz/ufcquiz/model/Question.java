@@ -1,8 +1,11 @@
 package com.muradavud.ufcquiz.ufcquiz.model;
 
+import lombok.Data;
+
 import java.util.List;
 
 
+@Data
 public class Question {
     private String question;
     private String answer;
@@ -14,27 +17,4 @@ public class Question {
         this.options = options;
     }
 
-    public List<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<String> options) {
-        this.options = options;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 }

@@ -3,8 +3,7 @@ package com.muradavud.ufcquiz.ufcquiz.controllers;
 import com.muradavud.ufcquiz.ufcquiz.model.Question;
 import com.muradavud.ufcquiz.ufcquiz.services.FighterImageService;
 import com.muradavud.ufcquiz.ufcquiz.services.QuizService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 
+@Slf4j
 @Controller
 public class QuizController {
 
@@ -24,28 +24,28 @@ public class QuizController {
         this.fighterImageService = fighterImageService;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @RequestMapping(value = "/quiz", method = RequestMethod.POST)
-    public String handleAnswer(@RequestParam(value = "number_of_questions", required = false, defaultValue = "") String number,
-                               @RequestParam(value = "btn", required = false, defaultValue = "") String userAnswer,
-                               Model model) throws IOException {
+    public String handleAnswer(
+            @RequestParam(value = "number_of_questions", required = false, defaultValue = "") String number,
+            @RequestParam(value = "btn", required = false, defaultValue = "") String userAnswer,
+            Model model) throws IOException {
 
         if (!number.isEmpty()) {
+            if(Integer.parseInt(number) < 1) { return "index"; }
             quizService.setNumberOfQuestions(Integer.parseInt(number));
             quizService.initQuiz();
-            logger.info("Initializing Quiz. Number of question -> {}", number);
+            log.info("Initializing Quiz. Number of question -> {}", number);
         }
         if(quizService.isClosed()){
             return "index";
         }
         if(!userAnswer.isEmpty()) {
             quizService.postAnswer(userAnswer);
-            logger.info("User answer -> {}", userAnswer);
+            log.info("User answer -> {}", userAnswer);
             if (!quizService.iterateToNextQuestion()) {
                 quizService.finish();
                 model.addAttribute("result", quizService.getResult());
-                logger.info("Closing Quiz. Number of correct answers -> {}", quizService.getResult());
+                log.info("Closing Quiz. Number of correct answers -> {}", quizService.getResult());
                 return "index";
             }
         }
@@ -55,7 +55,7 @@ public class QuizController {
         model.addAttribute("blue_fighter", question.getOptions().get(1));
         model.addAttribute("r_img", fighterImageService.scrapeImageUrl(question.getOptions().get(0)));
         model.addAttribute("b_img", fighterImageService.scrapeImageUrl(question.getOptions().get(1)));
-        logger.info("Question {} -> {}", quizService.getCurrentQuestionIndex(), question.getQuestion());
+        log.info("Question {} -> {}", quizService.getCurrentQuestionIndex(), question.getQuestion());
 
         return "quiz";
     }

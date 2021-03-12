@@ -1,7 +1,6 @@
 package com.muradavud.ufcquiz.ufcquiz.services;
 
 import com.muradavud.ufcquiz.ufcquiz.model.Question;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,8 +10,11 @@ import java.util.Objects;
 @Service
 public class QuizServiceImpl implements QuizService {
 
-    @Autowired
     GetQuestionService getQuestionService;
+
+    public QuizServiceImpl(GetQuestionService getQuestionService) {
+        this.getQuestionService = getQuestionService;
+    }
 
     private boolean isClosed;
     private int numberOfQuestions;
@@ -52,7 +54,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void finish() {
         isClosed = true;
-        for (int i = 0; i<numberOfQuestions; i++) {
+        for (int i = 0; i < numberOfQuestions; i++) {
             if (Objects.equals(answers.get(i), questions.get(i).getAnswer())) {
                 numberOfCorrectAnswers = numberOfCorrectAnswers + 1;
             }
