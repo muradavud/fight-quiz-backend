@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GetQuestionServiceImpl implements GetQuestionService {
+public class QuestionServiceImpl implements QuestionService {
 
     private FightDao dao;
 
-    public GetQuestionServiceImpl(FightDao dao) {
+    public QuestionServiceImpl(FightDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public Question getRandomQuestion() {
+    public Question makeRandomQuestion() {
         Fight fight = dao.retrieveRandomFight();
 
         String text =
@@ -38,6 +38,6 @@ public class GetQuestionServiceImpl implements GetQuestionService {
             return new Question(text, fight.getB_fighter(), options);
         }
         else
-            return getRandomQuestion();
+            return makeRandomQuestion();
     }
 }

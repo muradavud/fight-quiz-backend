@@ -1,6 +1,6 @@
 package com.muradavud.ufcquiz.ufcquiz.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,5 +16,4 @@ public class Question {
         this.answer = answer;
         this.options = options;
     }
-
 }

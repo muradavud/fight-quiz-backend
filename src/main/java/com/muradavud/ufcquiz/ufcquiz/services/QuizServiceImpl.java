@@ -2,24 +2,28 @@ package com.muradavud.ufcquiz.ufcquiz.services;
 
 import com.muradavud.ufcquiz.ufcquiz.model.Question;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@SessionScope
 public class QuizServiceImpl implements QuizService {
 
-    GetQuestionService getQuestionService;
+    QuestionService questionService;
 
-    public QuizServiceImpl(GetQuestionService getQuestionService) {
-        this.getQuestionService = getQuestionService;
+    public QuizServiceImpl(QuestionService questionService) {
+        this.questionService = questionService;
     }
 
     private boolean isClosed;
     private int numberOfQuestions;
     private int numberOfCorrectAnswers;
     private int currentQuestionIndex;
+    private AtomicLong idCounter = new AtomicLong(1000);
     private List<Question> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
 
@@ -29,7 +33,8 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void initQuiz() {
+    public String initQuiz(int number) {
+        numberOfQuestions = number;
         isClosed = false;
         currentQuestionIndex = 0;
         numberOfCorrectAnswers = 0;
@@ -37,9 +42,10 @@ public class QuizServiceImpl implements QuizService {
         answers.clear();
 
         for (int i = 0; i < numberOfQuestions; i = i + 1) {
-            questions.add(i, getQuestionService.getRandomQuestion());
+            questions.add(i, questionService.makeRandomQuestion());
             answers.add(i, "");
         }
+        return String.valueOf(idCounter.getAndIncrement());
     }
 
     @Override

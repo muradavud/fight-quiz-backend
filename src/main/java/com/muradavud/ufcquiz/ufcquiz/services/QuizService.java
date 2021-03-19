@@ -2,10 +2,13 @@ package com.muradavud.ufcquiz.ufcquiz.services;
 
 import com.muradavud.ufcquiz.ufcquiz.model.Question;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public interface QuizService {
 
+
     void setNumberOfQuestions(int numberOfQuestions);
-    void initQuiz();
+    String initQuiz(int numberOfQuestions); //doesnt need id increment
     void finish();
     boolean isClosed();
     boolean iterateToNextQuestion();
