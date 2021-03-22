@@ -1,6 +1,6 @@
 package com.muradavud.ufcquiz.ufcquiz.model;
 
-import lombok.*;
+import lombok.Data;
 
 import java.util.List;
 

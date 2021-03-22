@@ -20,7 +20,7 @@ public class FighterImageServiceImpl implements FighterImageService {
         scrapeUrl = scrapeUrl + name;
 
         Connection.Response resp = Jsoup.connect(scrapeUrl)
-                .timeout(10000)
+                .timeout(5000)
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
                 .execute();
@@ -28,7 +28,7 @@ public class FighterImageServiceImpl implements FighterImageService {
         Document doc = resp.parse();
         Element element = doc.select("div.c-bio__image *").first();
         if (element == null) {
-            return "600px-no-image.png";
+            throw new RuntimeException("Image not available for this fighter");
         }
         return element.attr("src");
     }
