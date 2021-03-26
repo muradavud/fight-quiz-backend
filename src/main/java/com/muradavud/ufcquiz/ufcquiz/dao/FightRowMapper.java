@@ -14,7 +14,16 @@ public class FightRowMapper implements RowMapper<Fight> {
                 resultSet.getString("B_FIGHTER"),
                 resultSet.getString("DATE"),
                 resultSet.getString("LOCATION"),
-                resultSet.getString("WINNER"));
+                resultSet.getString("WINNER"),
+                resultSet.getString("R_AGE"),
+                resultSet.getString("B_AGE"),
+                resultSet.getString("R_HEIGHT_CMS"),
+                resultSet.getString("B_HEIGHT_CMS"),
+                resultSet.getString("R_REACH_CMS"),
+                resultSet.getString("B_REACH_CMS"),
+                resultSet.getString("R_WEIGHT_LBS"),
+                resultSet.getString("B_WEIGHT_LBS"),
+                resultSet.getString("WEIGHT_CLASS"));
         return fight;
     }
 }
