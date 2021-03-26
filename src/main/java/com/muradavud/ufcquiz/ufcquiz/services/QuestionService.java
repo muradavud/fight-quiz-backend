@@ -1,7 +1,7 @@
 package com.muradavud.ufcquiz.ufcquiz.services;
 
-import com.muradavud.ufcquiz.ufcquiz.model.Question;
+import com.muradavud.ufcquiz.ufcquiz.model.FightQuestion;
 
 public interface QuestionService {
-    Question makeRandomQuestion();
+    FightQuestion makeRandomFightQuestion();
 }

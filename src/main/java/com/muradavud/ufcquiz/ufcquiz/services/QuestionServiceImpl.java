@@ -2,7 +2,7 @@ package com.muradavud.ufcquiz.ufcquiz.services;
 
 import com.muradavud.ufcquiz.ufcquiz.dao.FightDao;
 import com.muradavud.ufcquiz.ufcquiz.model.Fight;
-import com.muradavud.ufcquiz.ufcquiz.model.Question;
+import com.muradavud.ufcquiz.ufcquiz.model.FightQuestion;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question makeRandomQuestion() {
+    public FightQuestion makeRandomFightQuestion() {
         Fight fight = dao.retrieveRandomFight();
 
         String text =
@@ -32,12 +32,12 @@ public class QuestionServiceImpl implements QuestionService {
         options.add(fight.getB_fighter());
 
         if (fight.getWinner().equalsIgnoreCase("red")) {
-            return new Question(text, fight.getR_fighter(), options);
+            return new FightQuestion(text, fight.getR_fighter(), options, fight);
         }
         else if (fight.getWinner().equalsIgnoreCase("blue")) {
-            return new Question(text, fight.getB_fighter(), options);
+            return new FightQuestion(text, fight.getB_fighter(), options, fight);
         }
         else
-            return makeRandomQuestion();
+            return makeRandomFightQuestion();
     }
 }
